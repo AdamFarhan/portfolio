@@ -7,13 +7,16 @@ import { Float } from "@react-three/drei";
 
 gsap.registerPlugin(useGSAP);
 
-const Geometry = ({ r, position, geometry, materials }) => {
+const Geometry = ({ r, position, geometry, materials, soundEffects }) => {
   const meshRef = useRef();
   const [visible, setVisible] = useState(false);
   const startingMaterial = gsap.utils.random(materials);
 
   const handleClick = (e) => {
     const mesh = e.object;
+
+    gsap.utils.random(soundEffects).play();
+
     gsap.to(mesh.rotation, {
       x: `+=${gsap.utils.random(0, 2)}`,
       y: `+=${gsap.utils.random(0, 2)}`,
@@ -94,11 +97,18 @@ export function Geometries() {
   const materials = [
     new THREE.MeshNormalMaterial(),
     new THREE.MeshNormalMaterial({ wireframe: true }),
-    new THREE.MeshStandardMaterial({ color: 0x2ecc71, roughness: 0 }),
-    new THREE.MeshStandardMaterial({ color: 0xf1c40f, roughness: 0 }),
-    new THREE.MeshStandardMaterial({ color: 0xe74c3c, roughness: 0 }),
-    new THREE.MeshStandardMaterial({ color: 0x8e44ad, roughness: 0 }),
-    new THREE.MeshStandardMaterial({ color: 0x1abc9c, roughness: 0 }),
+    new THREE.MeshStandardMaterial({ color: 0x2ecc71, roughness: 1 }),
+    new THREE.MeshStandardMaterial({ color: 0xf1c40f, roughness: 1 }),
+    new THREE.MeshStandardMaterial({ color: 0xe74c3c, roughness: 1 }),
+    new THREE.MeshStandardMaterial({ color: 0x8e44ad, roughness: 1 }),
+    new THREE.MeshStandardMaterial({ color: 0x1abc9c, roughness: 1 }),
+    new THREE.MeshStandardMaterial({ color: 0x049ef4 }),
+    new THREE.MeshStandardMaterial({
+      color: 0xffffff,
+      opacity: 0.6,
+      transparent: true,
+      roughness: 0,
+    }),
     new THREE.MeshStandardMaterial({
       color: 0x2980b9,
       roughness: 0,
@@ -111,6 +121,12 @@ export function Geometries() {
     }),
   ];
 
+  const soundEffects = [
+    new Audio("/sounds/knock1.ogg"),
+    new Audio("/sounds/knock2.ogg"),
+    new Audio("/sounds/knock3.ogg"),
+  ];
+
   return geometries.map((shape) => (
     <Geometry
       key={JSON.stringify(shape.position)}
@@ -118,6 +134,7 @@ export function Geometries() {
       geometry={shape.geometry}
       materials={materials}
       r={shape.r}
+      soundEffects={soundEffects}
     />
   ));
 }
