@@ -64,7 +64,7 @@ export const ProjectList = ({ projects, fallbackItemImage }: Props) => {
         ))}
       </ul>
 
-      <ul className="grid border-b border-b-slate-100">
+      {/* <ul className="grid border-b border-b-slate-100">
         {projects.map((project, index) => (
           <li key={project.uid} className="list-item opacity-0f ">
             <Link
@@ -84,14 +84,14 @@ export const ProjectList = ({ projects, fallbackItemImage }: Props) => {
                 <PrismicNextLink field={project.data.github_link}>
                   Click me
                 </PrismicNextLink>
-              </span> */}
+              </span> *
               <span className="ml-auto flex items-center gap-2 text-xl font-medium md:ml-0">
                 View Project <MdArrowOutward />
               </span>
             </Link>
           </li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
 };
