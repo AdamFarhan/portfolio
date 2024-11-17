@@ -2,6 +2,7 @@ import React from "react";
 import { createClient } from "@/prismicio";
 import Link from "next/link";
 import { PrismicNextLink } from "@prismicio/next";
+import { NavBar } from "./NavBar";
 
 export const Header = async () => {
   const client = createClient();
@@ -9,7 +10,7 @@ export const Header = async () => {
 
   return (
     <header className="top-0 z-50 mx-auto max-w-7xl md:sticky md:top-4">
-      <nav>
+      {/* <nav>
         <ul>
           <li>
             <Link href="#home" aria-label="Home Page">
@@ -22,7 +23,8 @@ export const Header = async () => {
             </li>
           ))}
         </ul>
-      </nav>
+      </nav> */}
+      <NavBar settings={settings} />
     </header>
   );
 };
