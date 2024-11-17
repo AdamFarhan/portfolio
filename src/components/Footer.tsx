@@ -5,14 +5,14 @@ import { PrismicNextLink } from "@prismicio/next";
 import Link from "next/link";
 import { Container } from "./Container";
 import { isFilled } from "@prismicio/client";
-import { FaGithub, FaTwitter, FaLinkedin } from "react-icons/fa6";
+import { FaGithub, FaLinkedin } from "react-icons/fa6";
 
 export async function Footer() {
   const client = createClient();
   const settings = await client.getSingle("settings");
   return (
     <Container as="footer" className="text-slate-600">
-      <div className="container mx-auto mt-20 flex flex-col items-center justify-between gap-6 py-8 sm:flex-row ">
+      <div className="container mx-auto mt-20 flex flex-col items-center justify-between gap-6 py-8 px-4 sm:flex-row ">
         <div className="name flex flex-col items-center justify-center gap-x-4 gap-y-2 sm:flex-row sm:justify-self-start">
           <Link
             href="#home"
