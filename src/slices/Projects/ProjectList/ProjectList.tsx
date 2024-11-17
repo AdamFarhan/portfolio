@@ -1,6 +1,10 @@
-import { Content } from "@prismicio/client";
+"use client";
+import { asImageSrc, Content, isFilled } from "@prismicio/client";
+import { PrismicNextLink } from "@prismicio/next";
+import Image from "next/image";
 import Link from "next/link";
 import { MdArrowOutward } from "react-icons/md";
+import { ProjectListItem } from "./ProjectListItem";
 
 type Props = {
   projects: Content.ProjectDocument[];
@@ -9,8 +13,19 @@ type Props = {
 export const ProjectList = ({ projects, fallbackItemImage }: Props) => {
   return (
     <div>
-      <ul className="grid border-b border-b-slate-100">
+      <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-20">
         {projects.map((project) => (
+          <li key={project.uid} className="list-item">
+            <ProjectListItem
+              project={project}
+              fallbackItemImage={fallbackItemImage}
+            />
+          </li>
+        ))}
+      </ul>
+
+      <ul className="grid border-b border-b-slate-100">
+        {projects.map((project, index) => (
           <li key={project.uid} className="list-item opacity-0f ">
             <Link
               href={`/project/${project.uid}`}
@@ -25,6 +40,11 @@ export const ProjectList = ({ projects, fallbackItemImage }: Props) => {
                   ))}
                 </div>
               </div>
+              {/* <span>
+                <PrismicNextLink field={project.data.github_link}>
+                  Click me
+                </PrismicNextLink>
+              </span> */}
               <span className="ml-auto flex items-center gap-2 text-xl font-medium md:ml-0">
                 View Project <MdArrowOutward />
               </span>
