@@ -1,7 +1,7 @@
 import { Button } from "@/components/Button";
 import { asImageSrc, Content, isFilled } from "@prismicio/client";
 import { PrismicRichText } from "@prismicio/react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { MdClose, MdInfo } from "react-icons/md";
 import {
   CloseButton,
@@ -14,11 +14,14 @@ import {
 import { PrismicNextImage } from "@prismicio/next";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
+import "./ListItem.css";
+
 type Props = {
   project: Content.ProjectDocument;
   fallbackItemImage: Content.ContentIndexSlice["primary"]["fallback_item_image"];
 };
 export const ProjectListItem = ({ project, fallbackItemImage }: Props) => {
+  const previewRef = useRef(null);
   const [isFullView, setIsFullView] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)", true);
 
@@ -32,13 +35,14 @@ export const ProjectListItem = ({ project, fallbackItemImage }: Props) => {
   });
   return (
     <div
-      className="w-full h-96 rounded-md border-2 border-slate-700 row-start-1 group flex flex-col"
+      className="box w-full h-96 rounded-md border-2 border-slate-700 row-start-1 group flex flex-col"
       style={{
         backgroundImage: `url(${contentImage})`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         // backgroundPosition: "center",
       }}
+      ref={previewRef}
     >
       <div className="w-full h-full group-hover:bg-slate-900/60 z-10 p-6 flex-col justify-between hidden group-hover:flex">
         <div>

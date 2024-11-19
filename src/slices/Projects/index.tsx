@@ -19,7 +19,12 @@ const ContentIndex = async ({
   slice,
 }: ContentIndexProps): Promise<JSX.Element> => {
   const client = createClient();
-  const projects = await client.getAllByType("project");
+  const projects = await client.getAllByType("project", {
+    orderings: {
+      field: "document.last_publication_date",
+      direction: "desc",
+    },
+  });
 
   return (
     <Container

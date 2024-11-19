@@ -139,6 +139,21 @@ export type InteriorPageDocument<Lang extends string = string> =
     Lang
   >;
 
+/**
+ * Item in *Project → Extra images*
+ */
+export interface ProjectDocumentDataExtraImagesItem {
+  /**
+   * image field in *Project → Extra images*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project.extra_images[].image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+}
+
 type ProjectDocumentDataSlicesSlice = never;
 
 /**
@@ -221,6 +236,19 @@ interface ProjectDocumentData {
    * - **Documentation**: https://prismic.io/docs/field#rich-text-title
    */
   content: prismic.RichTextField;
+
+  /**
+   * Extra images field in *Project*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project.extra_images[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  extra_images: prismic.GroupField<
+    Simplify<ProjectDocumentDataExtraImagesItem>
+  >;
 
   /**
    * Slice Zone field in *Project*
@@ -865,6 +893,7 @@ declare module "@prismicio/client" {
       InteriorPageDocumentDataSlicesSlice,
       ProjectDocument,
       ProjectDocumentData,
+      ProjectDocumentDataExtraImagesItem,
       ProjectDocumentDataSlicesSlice,
       SettingsDocument,
       SettingsDocumentData,
