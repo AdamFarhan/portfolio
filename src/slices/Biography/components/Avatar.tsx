@@ -69,7 +69,10 @@ export const Avatar = ({ image, className }: Props) => {
   }, [avatarRef]);
 
   return (
-    <div className={clsx("relative h-full w-full", className)} ref={avatarRef}>
+    <div
+      className={clsx("relative h-full w-full mx-auto", className)}
+      ref={avatarRef}
+    >
       <div className="avatar aspect-square overflow-hidden rounded-3xl border-2 border-slate-700 opacity-100">
         <PrismicNextImage
           field={image}

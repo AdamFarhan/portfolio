@@ -9,7 +9,7 @@ export const Header = async () => {
   const settings = await client.getSingle("settings");
 
   return (
-    <header className="top-0 z-50 mx-auto max-w-7xl md:sticky md:top-4">
+    <header className="top-0 z-50 mx-auto max-w-7xl md:sticky md:top-4 mt-5 md:mt-0">
       {/* <nav>
         <ul>
           <li>

@@ -8,7 +8,10 @@ import { MdArrowOutward } from "react-icons/md";
 import { Content } from "@prismicio/client";
 import { useGSAP } from "@gsap/react";
 
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+
 import { ProjectListItem } from "./ProjectListItem";
+import { ProjectListItemMobile } from "./ProjectListItemMobile";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -18,6 +21,7 @@ type Props = {
 };
 export const ProjectList = ({ projects, fallbackItemImage }: Props) => {
   const projectsRef = useRef<Array<HTMLLIElement | null>>([]);
+
   useGSAP(
     () => {
       projectsRef.current.forEach((project) => {
@@ -60,6 +64,17 @@ export const ProjectList = ({ projects, fallbackItemImage }: Props) => {
               project={project}
               fallbackItemImage={fallbackItemImage}
             />
+            {/* {isDesktop ? (
+              <ProjectListItem
+                project={project}
+                fallbackItemImage={fallbackItemImage}
+              />
+            ) : (
+              <ProjectListItemMobile
+                project={project}
+                fallbackItemImage={fallbackItemImage}
+              />
+            )} */}
           </li>
         ))}
       </ul>

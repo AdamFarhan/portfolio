@@ -2,9 +2,8 @@ import { Button } from "@/components/Button";
 import { asImageSrc, Content, isFilled } from "@prismicio/client";
 import { PrismicRichText } from "@prismicio/react";
 import { useState } from "react";
-import { MdClose, MdInfo } from "react-icons/md";
+import { MdInfo } from "react-icons/md";
 import {
-  CloseButton,
   Description,
   Dialog,
   DialogBackdrop,
@@ -12,15 +11,16 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { PrismicNextImage } from "@prismicio/next";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 type Props = {
   project: Content.ProjectDocument;
   fallbackItemImage: Content.ContentIndexSlice["primary"]["fallback_item_image"];
 };
-export const ProjectListItem = ({ project, fallbackItemImage }: Props) => {
+export const ProjectListItemMobile = ({
+  project,
+  fallbackItemImage,
+}: Props) => {
   const [isFullView, setIsFullView] = useState(false);
-  const isDesktop = useMediaQuery("(min-width: 768px)", true);
 
   const image = isFilled.image(project.data.thumbnail)
     ? project.data.thumbnail
@@ -43,7 +43,7 @@ export const ProjectListItem = ({ project, fallbackItemImage }: Props) => {
       <div className="w-full h-full group-hover:bg-slate-900/60 z-10 p-6 flex-col justify-between hidden group-hover:flex">
         <div>
           <span className="text-3xl font-bold">{project.data.title}</span>
-          <div className="flex gap-3 text-yellow-400 text-lg font-bold flex-wrap">
+          <div className="flex gap-3 text-yellow-400 text-lg font-bold">
             {project.tags.map((tag, index) => (
               <span key={`${project.id}-tag-${index}`}>{tag}</span>
             ))}
@@ -52,14 +52,11 @@ export const ProjectListItem = ({ project, fallbackItemImage }: Props) => {
         <p className="text-xl font-semibold">{project.data.description}</p>
         <div className="flex gap-2 items-center justify-center">
           {isFilled.link(project.data.live_link) && (
-            <Button
-              label={isDesktop ? "View Project" : "Project"}
-              linkField={project.data.live_link}
-            />
+            <Button label={"View Project"} linkField={project.data.live_link} />
           )}
           {isFilled.link(project.data.github_link) && (
             <Button
-              label={isDesktop ? "Source Code" : "Code"}
+              label={"Source Code"}
               linkField={project.data.github_link}
             />
           )}
@@ -82,29 +79,17 @@ export const ProjectListItem = ({ project, fallbackItemImage }: Props) => {
         {/* Full-screen container to center the panel */}
         <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
           {/* The actual dialog panel  */}
-          <DialogPanel className="relative max-w-2xl space-y-4 rounded-xl bg-slate-900 p-6 border-2 border-slate-800 shadow-md">
-            <CloseButton className="absolute top-4 right-4">
-              <MdClose className="size-6" />
-            </CloseButton>
+          <DialogPanel className="max-w-2xl space-y-4 rounded-xl bg-slate-900 p-6 border-2 border-slate-800 shadow-md">
             <DialogTitle className="font-bold tracking-tight text-5xl md:text-6xl text-slate-300">
               {project.data.title}
             </DialogTitle>
-            <Description className="flex flex-wrap gap-3 text-yellow-400 text-lg font-bold">
+            <Description className="flex gap-3 text-yellow-400 text-lg font-bold">
               {project.tags.map((tag, index) => (
                 <span key={`${project.id}-tag-${index}`}>{tag}</span>
               ))}
             </Description>
-            <PrismicNextImage
-              field={project.data.thumbnail}
-              className="hidden md:block"
-              // height={384}
-              // imgixParams={{
-              //   w: 500,
-              //   h: 300,
-              //   fit: "scale",
-              // }}
-            />
-            <div className="prose prose-invert prose-lg max-w-prose max-h-[50vh] overflow-y-auto">
+            <PrismicNextImage field={project.data.thumbnail} />
+            <div className="prose prose-invert prose-lg max-w-prose max-h-[500px] overflow-y-auto">
               <PrismicRichText field={project.data.content} />
               {/* <PrismicRichText field={project.data.content} /> */}
             </div>
